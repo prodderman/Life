@@ -3,15 +3,15 @@
   height: 1rem;
   border: 1px solid #ddd;
 
-  &__alive {
+  &:hover:not(&_alive):not(&_alive) {
+    background: #ddd;
+  }
+
+  &_alive {
     background-color: #ff5400;
   }
 
-  &__new-born {
+  &_new-born {
     background-color: #ffbf00;
-  }
-
-  &:hover:not(.alive):not(.new-born) {
-    background: #ddd;
   }
 }

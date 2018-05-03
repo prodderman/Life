@@ -13,7 +13,7 @@ function gameStatusReducer(state: TPlayStatusState = initial.edit.gameStatus, ac
   switch (action.type) {
     case 'BOARD:PLAY':
       return {
-        timerId: action.payload.timerId,
+        timerId: action.payload,
         isRunning: true,
       };
     case 'BOARD:STOP':

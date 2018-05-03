@@ -6,14 +6,14 @@ export function tick(): NS.ITick {
   };
 }
 
-export function startPlaying(payload: NS.ITimerId): NS.IPlay {
+export function startPlaying(payload: NS.TTimerId): NS.IPlay {
   return {
     type: 'BOARD:PLAY',
     payload,
   };
 }
 
-export function stopPlaying(payload: NS.ITimerId): NS.IStop {
+export function stopPlaying(payload: NS.TTimerId): NS.IStop {
   return {
     type: 'BOARD:STOP',
     payload,

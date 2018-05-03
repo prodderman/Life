@@ -1,0 +1,15 @@
+.button {
+  display: inline-block;
+  margin-right: 0.4em;
+  padding: 0.3em 0.7em;
+  cursor: pointer;
+  color: #fff;
+  background-color: #db4500;
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1.5em;
+
+  &:hover {
+    background-color: lighten(#db4500, 10%);
+  }
+}

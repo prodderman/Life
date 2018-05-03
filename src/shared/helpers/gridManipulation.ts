@@ -51,11 +51,11 @@ function advanceGrid(grid: NS.IRow[] = []) {
       const neighbors = calculateNeighbor(i, j);
       if (cellIsAlive) {
         if (neighbors < 2) {
-            row.push({ alive: false, newBorn: this.newBorn});
+            row.push({ alive: false, newBorn: false });
         } else if (neighbors > 3) {
-            row.push({ alive: false, newBorn: this.newBorn});
+            row.push({ alive: false, newBorn: false });
         } else {
-            row.push({ alive: true, newBorn: this.newBorn});
+            row.push({ alive: true, newBorn: false });
         }
       }
 
@@ -66,10 +66,10 @@ function advanceGrid(grid: NS.IRow[] = []) {
           newBorn: true,
         });
       } else {
-        row.push({ alive: false, newBorn: this.newBorn });
+        row.push({ alive: false, newBorn: false });
         }
       }
-  }
+    }
     newGrid.push(row);
   }
   return newGrid;

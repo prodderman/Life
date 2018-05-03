@@ -13,3 +13,11 @@ export function getFeatureState(state: IAppReduxState): NS.IReduxState {
 export function getGrid(state: IAppReduxState): IRow[] {
   return getFeatureState(state).edit.grid;
 }
+
+export function getGameStatus(state: IAppReduxState): NS.IReduxState['edit']['gameStatus'] {
+  return getFeatureState(state).edit.gameStatus;
+}
+
+export function getGenerations(state: IAppReduxState): NS.IReduxState['edit']['generations'] {
+  return getFeatureState(state).edit.generations;
+}

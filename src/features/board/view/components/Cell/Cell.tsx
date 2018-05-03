@@ -18,7 +18,7 @@ class Cell extends React.PureComponent<IProps, {}> {
     return (
       <td
         onClick={handleClick}
-        className={`${b()} ${alive ? b('alive')() : ''} ${newBorn ? b('new-born')() : ''}`}
+        className={`${b()} ${alive ? b({alive: true}) : ''} ${newBorn ? b({'new-born': true})() : ''}`}
       />
     );
   }

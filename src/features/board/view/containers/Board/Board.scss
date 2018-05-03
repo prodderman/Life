@@ -1,3 +1,10 @@
 .board {
-  margin: auto;
+  &__grid {
+    margin: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
 }
