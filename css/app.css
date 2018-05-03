@@ -1,0 +1,16 @@
+.cell {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #ddd; }
+  .cell__alive {
+    background-color: #ff5400; }
+  .cell__new-born {
+    background-color: #ffbf00; }
+  .cell:hover:not(.alive):not(.new-born) {
+    background: #ddd; }
+.board {
+  margin: auto; }
+.game-page {
+  text-align: center; }
+.application {
+  height: 100%; }
