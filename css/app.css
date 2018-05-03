@@ -2,15 +2,38 @@
   width: 1rem;
   height: 1rem;
   border: 1px solid #ddd; }
-  .cell__alive {
-    background-color: #ff5400; }
-  .cell__new-born {
-    background-color: #ffbf00; }
-  .cell:hover:not(.alive):not(.new-born) {
+  .cell:hover:not(.cell_alive):not(.cell_alive) {
     background: #ddd; }
-.board {
+  .cell_alive {
+    background-color: #ff5400; }
+  .cell_new-born {
+    background-color: #ffbf00; }
+.button {
+  display: inline-block;
+  margin-right: 0.4em;
+  padding: 0.3em 0.7em;
+  cursor: pointer;
+  color: #fff;
+  background-color: #db4500;
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1.5em; }
+  .button:hover {
+    background-color: #ff5b0f; }
+.board__grid {
   margin: auto; }
+
+.board__footer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between; }
 .game-page {
   text-align: center; }
+  .game-page__board {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center; }
 .application {
   height: 100%; }
