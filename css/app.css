@@ -41,5 +41,7 @@
     display: flex;
     -ms-flex-pack: center;
         justify-content: center; }
+.test-page {
+  background-color: aquamarine; }
 .application {
   height: 100%; }
