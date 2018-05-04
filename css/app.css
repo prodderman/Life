@@ -23,6 +23,12 @@
 .board__grid {
   margin: auto; }
 
+.board__controls {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center; }
+
 .board__footer {
   display: -ms-flexbox;
   display: flex;
