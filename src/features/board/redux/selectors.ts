@@ -21,3 +21,7 @@ export function getGameStatus(state: IAppReduxState): NS.IReduxState['edit']['ga
 export function getGenerations(state: IAppReduxState): NS.IReduxState['edit']['generations'] {
   return getFeatureState(state).edit.generations;
 }
+
+export function getGridSize(state: IAppReduxState): NS.IReduxState['edit']['gridSize'] {
+  return getFeatureState(state).edit.gridSize;
+}

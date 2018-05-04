@@ -4,3 +4,8 @@ export interface ICell {
 }
 
 export type IRow = ICell[];
+
+export interface IGridSize {
+  width: number;
+  height: number;
+}

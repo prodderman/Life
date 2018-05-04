@@ -1,15 +1,20 @@
 import * as NS from '../namespace';
-import { GRID_WIDTH, GRID_HEIGHT } from 'core/constants';
 import { makeGrid } from 'shared/helpers/gridManipulation';
+
+const gridSizesInit = {
+  width: 50,
+  height: 40,
+};
 
 const initialState: NS.IReduxState = {
   edit: {
-    grid: makeGrid(GRID_HEIGHT, GRID_WIDTH),
+    grid: makeGrid(gridSizesInit),
     generations: 0,
     gameStatus: {
       timerId: null,
       isRunning: false,
     },
+    gridSize: gridSizesInit,
   },
 };
 

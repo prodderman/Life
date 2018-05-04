@@ -1,30 +1,32 @@
 import { IPlainAction, IAction } from 'shared/types/redux';
-import { IRow } from 'shared/types/models';
+import { IRow, IGridSize } from 'shared/types/models';
 
 export interface IReduxState {
   edit: {
     grid: IRow[];
     generations: number;
-    gameStatus: {
-      timerId: TTimerId,
-      isRunning: boolean,
-    }
+    gameStatus: IGameStatus;
+    gridSize: IGridSize;
   };
 }
 
 export type IToggleAlive = IAction<'BOARD:TOGGLE_ALIVE', ILocationCell>;
-export type IMakeRandom = IPlainAction<'BOARD:MAKE_RANDOM'>;
+export type IMakeRandom = IAction<'BOARD:MAKE_RANDOM', IGridSize>;
 export type ITick = IPlainAction<'BOARD:TICK'>;
-export type IPlay = IAction<'BOARD:PLAY', TTimerId>;
-export type IStop = IAction<'BOARD:STOP', TTimerId>;
-export type IClear = IPlainAction<'BOARD:CLEAR'>;
+export type IPlay = IAction<'BOARD:PLAY', number>;
+export type IStop = IAction<'BOARD:STOP', number>;
+export type IClear = IAction<'BOARD:CLEAR', IGridSize>;
+export type IResize = IAction<'BOARD:RESIZE', IGridSize>;
 
 export interface ILocationCell {
   x: number;
   y: number;
 }
 
-export type TTimerId = NodeJS.Timer | null;
+export interface IGameStatus {
+  timerId: number | null;
+  isRunning: boolean;
+}
 
 export type Action =
-  | IToggleAlive | IMakeRandom | ITick | IPlay | IStop | IClear;
+  | IToggleAlive | IMakeRandom | ITick | IPlay | IStop | IClear | IResize;

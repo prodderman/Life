@@ -1,10 +1,10 @@
 import * as NS from 'shared/types/models/Board';
 
-function makeGrid(height: number, width: number, makeRandom = false): NS.IRow[] {
+function makeGrid(size: NS.IGridSize, makeRandom = false): NS.IRow[] {
   const grid: NS.IRow[] = [];
-  for (let i = 0; i < height; i++) {
+  for (let i = 0; i < size.height; i++) {
     const row: NS.IRow = [];
-    for (let j = 0; j < width; j++) {
+    for (let j = 0; j < size.width; j++) {
       const value: NS.ICell = {
         alive: false,
         newBorn: false,

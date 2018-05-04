@@ -1,4 +1,5 @@
 import * as NS from '../../namespace';
+import { IGridSize } from 'shared/types/models';
 
 export function tick(): NS.ITick {
   return {
@@ -6,14 +7,14 @@ export function tick(): NS.ITick {
   };
 }
 
-export function startPlaying(payload: NS.TTimerId): NS.IPlay {
+export function startPlaying(payload: number): NS.IPlay {
   return {
     type: 'BOARD:PLAY',
     payload,
   };
 }
 
-export function stopPlaying(payload: NS.TTimerId): NS.IStop {
+export function stopPlaying(payload: number): NS.IStop {
   return {
     type: 'BOARD:STOP',
     payload,
@@ -27,14 +28,23 @@ export function toggleAlive(payload: NS.ILocationCell): NS.IToggleAlive {
   };
 }
 
-export function makeRandomGrid(): NS.IMakeRandom {
+export function makeRandomGrid(payload: IGridSize): NS.IMakeRandom {
   return {
     type: 'BOARD:MAKE_RANDOM',
+    payload,
   };
 }
 
-export function clear(): NS.IClear {
+export function clear(payload: IGridSize): NS.IClear {
   return {
     type: 'BOARD:CLEAR',
+    payload,
+  };
+}
+
+export function resizeGrid(payload: IGridSize): NS.IResize {
+  return {
+    type: 'BOARD:RESIZE',
+    payload,
   };
 }
