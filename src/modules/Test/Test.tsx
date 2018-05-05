@@ -5,10 +5,10 @@ import { Module } from 'shared/types/app';
 import { Route } from 'react-router-dom';
 import Layout from './view/Layout/Layout';
 
-class GameModule extends Module {
+class TestModule extends Module {
   public getRoutes() {
-    return <Route key="life" path={`${ROUTES_PREFIX}/life`} component={Layout} />;
+    return <Route key="test" path={`${ROUTES_PREFIX}/test`} component={Layout} />;
   }
 }
 
-export default GameModule;
+export default TestModule;

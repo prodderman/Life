@@ -3,13 +3,14 @@
     margin: auto;
   }
 
-  &__controls {
-    display: flex;
-    align-items: center;
+  &__counter {
+    padding: 0.5rem 0;
+    text-align: left;
   }
 
-  &__footer {
+  &__controls {
     display: flex;
-    justify-content: space-between;
+    margin: 2rem 0;
+    align-items: center;
   }
 }

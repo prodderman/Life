@@ -2,8 +2,8 @@ import * as NS from '../namespace';
 import { makeGrid } from 'shared/helpers/gridManipulation';
 
 const gridSizesInit = {
-  width: 50,
-  height: 40,
+  width: 40,
+  height: 30,
 };
 
 const initialState: NS.IReduxState = {

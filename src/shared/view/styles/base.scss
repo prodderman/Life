@@ -1,5 +1,9 @@
 @import './elements/*';
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   color: #505050;
   background: #f8f8f8;

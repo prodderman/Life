@@ -7,8 +7,6 @@ import { composeReducers } from 'shared/helpers/redux';
 import { IAppReduxState } from 'shared/types/app';
 import { ReducersMap } from 'shared/types/redux';
 
-import { reducer as boardReducer } from 'features/board';
-
 interface IStoreData {
   store: Store<IAppReduxState>;
   runSaga: SagaMiddleware['run'];
@@ -21,7 +19,7 @@ function configureStore(): IStoreData {
   const composeEnhancers = process.env.NODE_ENV === 'development' ? composeWithDevTools({}) : compose;
 
   const store: Store<IAppReduxState> = createStore(
-    createReducer({board: boardReducer}),
+    (state: IAppReduxState) => state,
     composeEnhancers(applyMiddleware(...middlewares)),
   );
 

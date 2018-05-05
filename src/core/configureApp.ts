@@ -2,20 +2,22 @@ import configureDeps from './configureDeps';
 import { TYPES, container } from './configureIoc';
 import configureStore, { createReducer } from './configureStore';
 
-import { GameModule } from 'modules';
+import { GameModule, TestModule } from 'modules';
+
+import boards from 'features/board';
 
 import { ReducersMap } from 'shared/types/redux';
 import { IAppData, Module, RootSaga, IAppReduxState, IReduxEntry } from 'shared/types/app';
 
 function configureApp(data?: IAppData): IAppData {
   /* Prepare main app elements */
-  const modules: Module[] = [new GameModule() ];
+  const modules: Module[] = [ new GameModule(), new TestModule() ];
 
   if (data) {
     return { ...data, modules };
   }
 
-  const sharedReduxEntries: IReduxEntry[] = [];
+  const sharedReduxEntries: IReduxEntry[] = [boards];
 
   const connectedSagas: RootSaga[] = [];
   const connectedReducers: ReducersMap<Partial<IAppReduxState>> = {};

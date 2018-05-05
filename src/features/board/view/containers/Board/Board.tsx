@@ -99,6 +99,9 @@ class Board extends React.Component<IProps, IState> {
           </tbody>
         </table>
         <div className={b('footer')()}>
+          <div className={b('counter')()}>
+            Generations: {generations}
+          </div>
           <div className={b('controls')()}>
             <div className={b('button')()}>
               <Button
@@ -133,9 +136,6 @@ class Board extends React.Component<IProps, IState> {
               <input type="number" defaultValue={`${gridSize.width}`} onBlur={this.setGridWidth}/>
               <input type="number" defaultValue={`${gridSize.height}`} onBlur={this.setGridHeight}/>
             </div>
-          </div>
-          <div className={b('counter')()}>
-            Generations: {generations}
           </div>
         </div>
       </div>

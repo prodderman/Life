@@ -1,8 +1,19 @@
 .game-page {
   text-align: center;
 
+  &__title {
+    margin: 0;
+    margin-bottom: 1.5rem;
+  }
+
   &__board {
     display: flex;
     justify-content: center;
+  }
+
+  &__test-link {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: #ddd;
   }
 }
