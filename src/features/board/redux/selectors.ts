@@ -29,3 +29,7 @@ export function getGridSize(state: IAppReduxState): NS.IReduxState['edit']['grid
 export function getGameSpeed(state: IAppReduxState): NS.IReduxState['edit']['gameSpeed'] {
   return getFeatureState(state).edit.gameSpeed;
 }
+
+export function getAliveValue(state: IAppReduxState): NS.IReduxState['edit']['aliveValue'] {
+  return getFeatureState(state).edit.aliveValue;
+}

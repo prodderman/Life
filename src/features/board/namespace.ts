@@ -8,10 +8,11 @@ export interface IReduxState {
     gameStatus: IGameStatus;
     gridSize: IGridSize;
     gameSpeed: number;
+    aliveValue: boolean;
   };
 }
 
-export type IToggleAlive = IAction<'BOARD:TOGGLE_ALIVE', ILocationCell>;
+export type ISetAlive = IAction<'BOARD:SET_ALIVE', ICell>;
 export type IMakeRandom = IAction<'BOARD:MAKE_RANDOM', IGridSize>;
 export type ITick = IPlainAction<'BOARD:TICK'>;
 export type IPlay = IAction<'BOARD:PLAY', number>;
@@ -19,10 +20,12 @@ export type IStop = IAction<'BOARD:STOP', number>;
 export type IClear = IAction<'BOARD:CLEAR', IGridSize>;
 export type IResize = IAction<'BOARD:RESIZE', IGridSize>;
 export type IChangeSpeed = IAction<'BOARD:CHANGE_SPEED', number>;
+export type IChangeAliveValue = IAction<'BOARD:CHANGE_ALIVE_VALUE', boolean>;
 
-export interface ILocationCell {
+export interface ICell {
   x: number;
   y: number;
+  value: boolean;
 }
 
 export interface IGameStatus {
@@ -31,4 +34,4 @@ export interface IGameStatus {
 }
 
 export type Action =
-  | IToggleAlive | IMakeRandom | ITick | IPlay | IStop | IClear | IResize | IChangeSpeed;
+  | ISetAlive | IMakeRandom | ITick | IPlay | IStop | IClear | IResize | IChangeSpeed | IChangeAliveValue;

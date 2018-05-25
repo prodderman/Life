@@ -21,9 +21,9 @@ export function stopPlaying(payload: number): NS.IStop {
   };
 }
 
-export function toggleAlive(payload: NS.ILocationCell): NS.IToggleAlive {
+export function setAlive(payload: NS.ICell): NS.ISetAlive {
   return {
-    type: 'BOARD:TOGGLE_ALIVE',
+    type: 'BOARD:SET_ALIVE',
     payload,
   };
 }
@@ -52,6 +52,13 @@ export function resizeGrid(payload: IGridSize): NS.IResize {
 export function changeSpeed(payload: number): NS.IChangeSpeed {
   return {
     type: 'BOARD:CHANGE_SPEED',
+    payload,
+  };
+}
+
+export function changeAliveValue(payload: boolean): NS.IChangeAliveValue {
+  return {
+    type: 'BOARD:CHANGE_ALIVE_VALUE',
     payload,
   };
 }

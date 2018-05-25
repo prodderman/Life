@@ -4,17 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { IRow } from 'shared/types/models';
 import { bind } from 'decko';
-
 import { IAppReduxState } from 'shared/types/app';
-
 import { actions, selectors } from './../../../redux';
-import * as NS from '../../../namespace';
-
 import Cell from '../../components/Cell/Cell';
 import Button from '../../components/Button/Button';
-
 import './Board.scss';
-import { Input } from 'postcss';
 
 interface IStateProps {
   grid: IRow[];
@@ -28,10 +22,11 @@ interface IStateProps {
     height: number,
   };
   gameSpeed: number;
+  aliveValue: boolean;
 }
 
 interface IActionProps {
-  toggleAlive: typeof actions.toggleAlive;
+  setAlive: typeof actions.setAlive;
   makeRandomGrid: typeof actions.makeRandomGrid;
   tick: typeof actions.tick;
   startPlaying: typeof actions.startPlaying;
@@ -39,6 +34,7 @@ interface IActionProps {
   clear: typeof actions.clear;
   resizeGrid: typeof actions.resizeGrid;
   changeSpeed: typeof actions.changeSpeed;
+  changeAliveValue: typeof actions.changeAliveValue;
 }
 
 type IProps = IStateProps & IActionProps;
@@ -49,12 +45,13 @@ function mapState(state: IAppReduxState): IStateProps {
   const generations = selectors.getGenerations(state);
   const gridSize = selectors.getGridSize(state);
   const gameSpeed = selectors.getGameSpeed(state);
-  return { grid, gameStatus, generations, gridSize, gameSpeed };
+  const aliveValue = selectors.getAliveValue(state);
+  return { grid, gameStatus, generations, gridSize, gameSpeed, aliveValue };
 }
 
 function mapDispatch(dispatch: Dispatch<IAppReduxState>): IActionProps {
   return bindActionCreators({
-    toggleAlive: actions.toggleAlive,
+    setAlive: actions.setAlive,
     makeRandomGrid: actions.makeRandomGrid,
     tick: actions.tick,
     startPlaying: actions.startPlaying,
@@ -62,6 +59,7 @@ function mapDispatch(dispatch: Dispatch<IAppReduxState>): IActionProps {
     clear: actions.clear,
     resizeGrid: actions.resizeGrid,
     changeSpeed: actions.changeSpeed,
+    changeAliveValue: actions.changeAliveValue,
   }, dispatch);
 }
 
@@ -71,12 +69,14 @@ class Board extends React.Component<IProps> {
   public render() {
     const {
       grid,
-      toggleAlive,
+      setAlive,
       tick,
       generations,
       gameStatus,
       gridSize,
       gameSpeed,
+      aliveValue,
+      changeAliveValue,
     } = this.props;
     return (
       <div className={b()}>
@@ -84,8 +84,17 @@ class Board extends React.Component<IProps> {
           <tbody>
             {grid.map((row, i) =>
               <tr key={i}>{row.map((cell, j) => {
-                  const handleClick = () => toggleAlive({x: i, y: j});
-                  return <Cell key={j} alive={cell.alive} newBorn={cell.newBorn} handleClick={handleClick}/>;
+                  const handleChangeAlive = () => setAlive({x: i, y: j, value: aliveValue});
+                  const handleChangeAliveValue = () => changeAliveValue(!cell.alive);
+                  return (
+                    <Cell
+                      key={j}
+                      alive={cell.alive}
+                      newBorn={cell.newBorn}
+                      changeAlive={handleChangeAlive}
+                      changeAliveValue={handleChangeAliveValue}
+                    />
+                  );
                 })}
               </tr>)}
           </tbody>
@@ -118,7 +127,7 @@ class Board extends React.Component<IProps> {
               <input
                 type="range"
                 onChange={this.changeSpeed}
-                defaultValue={`${gameSpeed}`}
+                defaultValue={`${-gameSpeed}`}
                 min="-1000"
                 max="0"
                 step="1"
@@ -139,8 +148,8 @@ class Board extends React.Component<IProps> {
     const timerVal = Math.abs(parseInt(event.currentTarget.value, 10));
     this.props.changeSpeed(timerVal);
     if (this.props.gameStatus.isRunning) {
-      clearInterval(this.props.gameStatus.timerId as number);
-      const interval = setInterval(this.props.tick, this.props.gameSpeed);
+      window.clearInterval(this.props.gameStatus.timerId as number);
+      const interval = window.setInterval(this.props.tick, timerVal);
       this.props.startPlaying(interval);
     }
   }
@@ -148,10 +157,10 @@ class Board extends React.Component<IProps> {
   @bind
   private togglePlay() {
     if (this.props.gameStatus.isRunning) {
-      clearInterval(this.props.gameStatus.timerId as number);
+      window.clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     } else {
-      const interval = setInterval(this.props.tick, this.props.gameSpeed);
+      const interval = window.setInterval(this.props.tick, this.props.gameSpeed);
       this.props.startPlaying(interval);
     }
   }
@@ -159,7 +168,7 @@ class Board extends React.Component<IProps> {
   @bind
   private clearGrid() {
     if (this.props.gameStatus.isRunning) {
-      clearInterval(this.props.gameStatus.timerId as number);
+      window.clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     this.props.clear(this.props.gridSize);
@@ -173,7 +182,7 @@ class Board extends React.Component<IProps> {
   @bind
   private setGridWidth(event: React.FocusEvent<HTMLInputElement>) {
     if (this.props.gameStatus.isRunning) {
-      clearInterval(this.props.gameStatus.timerId as number);
+      window.clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     const newGridSize = {
@@ -186,7 +195,7 @@ class Board extends React.Component<IProps> {
   @bind
   private setGridHeight(event: React.FocusEvent<HTMLInputElement>) {
     if (this.props.gameStatus.isRunning) {
-      clearInterval(this.props.gameStatus.timerId as number);
+      window.clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     const newGridSize = {
