@@ -26,7 +26,8 @@
       -ms-user-select: none;
           user-select: none; }
   .board__grid {
-    margin: auto; }
+    margin: auto;
+    border-collapse: collapse; }
   .board__counter {
     padding: 0.5rem 0;
     text-align: left; }
