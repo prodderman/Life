@@ -20,19 +20,22 @@
   line-height: 1.5em; }
   .button:hover {
     background-color: #ff5b0f; }
-.board__grid {
-  margin: auto; }
-
-.board__counter {
-  padding: 0.5rem 0;
-  text-align: left; }
-
-.board__controls {
-  display: -ms-flexbox;
-  display: flex;
-  margin: 2rem 0;
-  -ms-flex-align: center;
-      align-items: center; }
+.board {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .board__grid {
+    margin: auto; }
+  .board__counter {
+    padding: 0.5rem 0;
+    text-align: left; }
+  .board__controls {
+    display: -ms-flexbox;
+    display: flex;
+    margin: 2rem 0;
+    -ms-flex-align: center;
+        align-items: center; }
 .game-page {
   text-align: center; }
   .game-page__title {
