@@ -27,6 +27,7 @@ interface IStateProps {
     width: number,
     height: number,
   };
+  gameSpeed: number;
 }
 
 interface IActionProps {
@@ -37,12 +38,7 @@ interface IActionProps {
   stopPlaying: typeof actions.stopPlaying;
   clear: typeof actions.clear;
   resizeGrid: typeof actions.resizeGrid;
-}
-
-interface IState {
- timerSpeed: number;
- minSpeed: number;
- maxSpeed: number;
+  changeSpeed: typeof actions.changeSpeed;
 }
 
 type IProps = IStateProps & IActionProps;
@@ -52,7 +48,8 @@ function mapState(state: IAppReduxState): IStateProps {
   const gameStatus = selectors.getGameStatus(state);
   const generations = selectors.getGenerations(state);
   const gridSize = selectors.getGridSize(state);
-  return { grid, gameStatus, generations, gridSize };
+  const gameSpeed = selectors.getGameSpeed(state);
+  return { grid, gameStatus, generations, gridSize, gameSpeed };
 }
 
 function mapDispatch(dispatch: Dispatch<IAppReduxState>): IActionProps {
@@ -64,27 +61,22 @@ function mapDispatch(dispatch: Dispatch<IAppReduxState>): IActionProps {
     stopPlaying: actions.stopPlaying,
     clear: actions.clear,
     resizeGrid: actions.resizeGrid,
+    changeSpeed: actions.changeSpeed,
   }, dispatch);
 }
 
 const b = block('board');
 
-class Board extends React.Component<IProps, IState> {
-  public state: IState = {
-    timerSpeed: 200,
-    minSpeed: 1,
-    maxSpeed: 1000,
-  };
-
+class Board extends React.Component<IProps> {
   public render() {
     const {
       grid,
       toggleAlive,
-      makeRandomGrid,
       tick,
       generations,
       gameStatus,
       gridSize,
+      gameSpeed,
     } = this.props;
     return (
       <div className={b()}>
@@ -126,9 +118,9 @@ class Board extends React.Component<IProps, IState> {
               <input
                 type="range"
                 onChange={this.changeSpeed}
-                defaultValue={`${this.state.maxSpeed - this.state.timerSpeed + this.state.minSpeed}`}
-                min={this.state.minSpeed}
-                max={this.state.maxSpeed}
+                defaultValue={`${gameSpeed}`}
+                min="-1000"
+                max="0"
                 step="1"
               />
             </div>
@@ -144,13 +136,11 @@ class Board extends React.Component<IProps, IState> {
 
   @bind
   private changeSpeed(event: React.ChangeEvent<HTMLInputElement>) {
-    const minVal = parseInt(event.target.min, 10);
-    const maxVal = parseInt(event.target.max, 10);
-    const timerVal = maxVal - parseInt(event.target.value, 10) + minVal;
-    this.setState({timerSpeed: timerVal});
+    const timerVal = Math.abs(parseInt(event.currentTarget.value, 10));
+    this.props.changeSpeed(timerVal);
     if (this.props.gameStatus.isRunning) {
-      window.clearInterval(this.props.gameStatus.timerId as number);
-      const interval = window.setInterval(this.props.tick, timerVal);
+      clearInterval(this.props.gameStatus.timerId as number);
+      const interval = setInterval(this.props.tick, this.props.gameSpeed);
       this.props.startPlaying(interval);
     }
   }
@@ -158,10 +148,10 @@ class Board extends React.Component<IProps, IState> {
   @bind
   private togglePlay() {
     if (this.props.gameStatus.isRunning) {
-      window.clearInterval(this.props.gameStatus.timerId as number);
+      clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     } else {
-      const interval = window.setInterval(this.props.tick, this.state.timerSpeed);
+      const interval = setInterval(this.props.tick, this.props.gameSpeed);
       this.props.startPlaying(interval);
     }
   }
@@ -169,7 +159,7 @@ class Board extends React.Component<IProps, IState> {
   @bind
   private clearGrid() {
     if (this.props.gameStatus.isRunning) {
-      window.clearInterval(this.props.gameStatus.timerId as number);
+      clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     this.props.clear(this.props.gridSize);
@@ -183,7 +173,7 @@ class Board extends React.Component<IProps, IState> {
   @bind
   private setGridWidth(event: React.FocusEvent<HTMLInputElement>) {
     if (this.props.gameStatus.isRunning) {
-      window.clearInterval(this.props.gameStatus.timerId as number);
+      clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     const newGridSize = {
@@ -196,7 +186,7 @@ class Board extends React.Component<IProps, IState> {
   @bind
   private setGridHeight(event: React.FocusEvent<HTMLInputElement>) {
     if (this.props.gameStatus.isRunning) {
-      window.clearInterval(this.props.gameStatus.timerId as number);
+      clearInterval(this.props.gameStatus.timerId as number);
       this.props.stopPlaying(this.props.gameStatus.timerId as number);
     }
     const newGridSize = {

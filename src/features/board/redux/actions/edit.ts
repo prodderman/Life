@@ -48,3 +48,10 @@ export function resizeGrid(payload: IGridSize): NS.IResize {
     payload,
   };
 }
+
+export function changeSpeed(payload: number): NS.IChangeSpeed {
+  return {
+    type: 'BOARD:CHANGE_SPEED',
+    payload,
+  };
+}

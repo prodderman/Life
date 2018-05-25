@@ -7,6 +7,7 @@ export interface IReduxState {
     generations: number;
     gameStatus: IGameStatus;
     gridSize: IGridSize;
+    gameSpeed: number;
   };
 }
 
@@ -17,6 +18,7 @@ export type IPlay = IAction<'BOARD:PLAY', number>;
 export type IStop = IAction<'BOARD:STOP', number>;
 export type IClear = IAction<'BOARD:CLEAR', IGridSize>;
 export type IResize = IAction<'BOARD:RESIZE', IGridSize>;
+export type IChangeSpeed = IAction<'BOARD:CHANGE_SPEED', number>;
 
 export interface ILocationCell {
   x: number;
@@ -29,4 +31,4 @@ export interface IGameStatus {
 }
 
 export type Action =
-  | IToggleAlive | IMakeRandom | ITick | IPlay | IStop | IClear | IResize;
+  | IToggleAlive | IMakeRandom | ITick | IPlay | IStop | IClear | IResize | IChangeSpeed;

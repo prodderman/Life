@@ -15,6 +15,7 @@ const initialState: NS.IReduxState = {
       isRunning: false,
     },
     gridSize: gridSizesInit,
+    gameSpeed: 10,
   },
 };
 

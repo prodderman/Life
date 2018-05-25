@@ -8,6 +8,7 @@ type TPlayStatusState = NS.IReduxState['edit']['gameStatus'];
 type TGenerationCounter = NS.IReduxState['edit']['generations'];
 type TBoard = NS.IReduxState['edit']['grid'];
 type TGridSize = NS.IReduxState['edit']['gridSize'];
+type TSpeed = NS.IReduxState['edit']['gameSpeed'];
 
 function gameStatusReducer(state: TPlayStatusState = initial.edit.gameStatus, action: NS.Action): TPlayStatusState {
   switch (action.type) {
@@ -71,9 +72,19 @@ function gridSizeReducer(state: TGridSize = initial.edit.gridSize, action: NS.Ac
   }
 }
 
+function gameSpeedReducer(state: TSpeed = initial.edit.gameSpeed, action: NS.Action): TSpeed {
+  switch (action.type) {
+    case 'BOARD:CHANGE_SPEED':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   grid: boardReducer,
   generations: generationCounterReducer,
   gameStatus: gameStatusReducer,
   gridSize: gridSizeReducer,
+  gameSpeed: gameSpeedReducer,
 } as ReducersMap<NS.IReduxState['edit']>);
