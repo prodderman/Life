@@ -7,8 +7,9 @@ import { bind } from 'decko';
 interface IProps {
   alive: boolean;
   newBorn: boolean;
-  changeAlive?: (event: React.MouseEvent<HTMLTableDataCellElement>) => void;
-  changeAliveValue?: (event: React.MouseEvent<HTMLTableDataCellElement>) => void;
+  aliveValue: boolean;
+  changeAlive?: (value: boolean) => void;
+  changeAliveValue?: (value: boolean) => void;
 }
 
 const b = block('cell');
@@ -19,27 +20,27 @@ class Cell extends React.PureComponent<IProps, {}> {
     return (
       <td
         onMouseDown={this.handleMouseDown}
-        onMouseOver={this.handleMouseOver}
+        onMouseEnter={this.handleMouseEnter}
         className={`${b()} ${alive ? b({alive: true}) : ''} ${newBorn ? b({'new-born': true})() : ''}`}
       />
     );
   }
 
   @bind
-  private handleMouseOver(event: React.MouseEvent<HTMLTableDataCellElement>) {
+  private handleMouseEnter(event: React.MouseEvent<HTMLTableDataCellElement>) {
     if (event.buttons !== 1) { return; }
     if (this.props.changeAlive) {
-      this.props.changeAlive(event);
+      this.props.changeAlive(this.props.aliveValue);
     }
   }
 
   @bind
-  private handleMouseDown(event: React.MouseEvent<HTMLTableDataCellElement>) {
+  private handleMouseDown() {
     if (this.props.changeAliveValue) {
-      this.props.changeAliveValue(event);
+      this.props.changeAliveValue(!this.props.alive);
     }
     if (this.props.changeAlive) {
-      this.props.changeAlive(event);
+      this.props.changeAlive(!this.props.alive);
     }
   }
 }

@@ -1,9 +1,29 @@
 .game-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   text-align: center;
+
+  &__header {
+    flex: 0 0 auto;
+    padding: 1rem 2rem;
+    background-color: aquamarine;
+  }
+
+  &__main {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__footer {
+    flex: 0 0 auto;
+    background-color: aquamarine;
+  }
 
   &__title {
     margin: 0;
-    margin-bottom: 1.5rem;
   }
 
   &__board {
@@ -11,9 +31,9 @@
     justify-content: center;
   }
 
-  &__test-link {
+  &__link {
+    display: block;
+    height: 100%;
     padding: 1rem 2rem;
-    cursor: pointer;
-    background-color: #ddd;
   }
 }

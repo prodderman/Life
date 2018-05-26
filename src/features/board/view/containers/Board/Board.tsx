@@ -84,13 +84,14 @@ class Board extends React.Component<IProps> {
           <tbody>
             {grid.map((row, i) =>
               <tr key={i}>{row.map((cell, j) => {
-                  const handleChangeAlive = () => setAlive({x: i, y: j, value: aliveValue});
-                  const handleChangeAliveValue = () => changeAliveValue(!cell.alive);
+                  const handleChangeAliveValue = (value: boolean) => changeAliveValue(value);
+                  const handleChangeAlive = (value: boolean) => setAlive({x: i, y: j, value});
                   return (
                     <Cell
                       key={j}
                       alive={cell.alive}
                       newBorn={cell.newBorn}
+                      aliveValue={aliveValue}
                       changeAlive={handleChangeAlive}
                       changeAliveValue={handleChangeAliveValue}
                     />
@@ -105,37 +106,61 @@ class Board extends React.Component<IProps> {
           </div>
           <div className={b('controls')()}>
             <div className={b('button')()}>
-              <Button
-                title={'Randomize'}
-                handleClick={this.randomGrid}
-              />
-              <Button
-                title={'Clear'}
-                handleClick={this.clearGrid}
-              />
-              <Button
-                title={gameStatus.isRunning ? 'Stop' : 'Start'}
-                handleClick={this.togglePlay}
-              />
-              <Button
-                title={'Forward'}
-                handleClick={tick}
-              />
+              <div className={b('label')()}>
+                Controls:
+              </div>
+              <div className={b('fieldset')()}>
+                <Button
+                  title={'Rand'}
+                  handleClick={this.randomGrid}
+                />
+                <Button
+                  title={'Clear'}
+                  handleClick={this.clearGrid}
+                />
+                <Button
+                  title={gameStatus.isRunning ? 'Stop' : 'Start'}
+                  handleClick={this.togglePlay}
+                />
+                <Button
+                  title={'Step'}
+                  handleClick={tick}
+                />
+              </div>
             </div>
             <div className={b('speed')()}>
-              speed:
-              <input
-                type="range"
-                onChange={this.changeSpeed}
-                defaultValue={`${-gameSpeed}`}
-                min="-1000"
-                max="0"
-                step="1"
-              />
+              <div className={b('label')()}>
+                Speed:
+              </div>
+              <div className={b('fieldset')()}>
+                <input
+                  type="range"
+                  onChange={this.changeSpeed}
+                  defaultValue={`${-gameSpeed}`}
+                  min="-1000"
+                  max="0"
+                  step="1"
+                />
+              </div>
             </div>
             <div className={b('size')()}>
-              <input type="number" defaultValue={`${gridSize.width}`} onBlur={this.setGridWidth}/>
-              <input type="number" defaultValue={`${gridSize.height}`} onBlur={this.setGridHeight}/>
+              <div className={b('label')()}>
+                Size:
+              </div>
+              <div className={b('fieldset')()}>
+                <input
+                  className={b('field')()}
+                  type="number"
+                  defaultValue={`${gridSize.width}`}
+                  onBlur={this.setGridWidth}
+                />
+                <input
+                  className={b('field')()}
+                  type="number"
+                  defaultValue={`${gridSize.height}`}
+                  onBlur={this.setGridHeight}
+                />
+              </div>
             </div>
           </div>
         </div>
