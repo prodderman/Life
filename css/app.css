@@ -59,6 +59,7 @@
     display: flex;
     -ms-flex: 1 0 auto;
         flex: 1 0 auto;
+    padding: 1rem 2rem;
     -ms-flex-align: center;
         align-items: center;
     -ms-flex-pack: center;
